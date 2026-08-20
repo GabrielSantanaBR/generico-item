@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#31544c" />
+  <meta name="description" content="Agendamento online — ClientFlow" />
+  <title>Agendamento online — ClientFlow</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="public-booking-body">
+  <main class="booking-page standalone-booking">
+    <a class="booking-close" href="index.html" aria-label="Voltar ao painel">×</a>
+    <header class="booking-brand"><span class="booking-logo">A</span><div><strong id="public-business">Studio Aurora</strong><small>Agendamento online</small></div></header>
+    <section class="booking-copy"><p class="page-kicker">AGENDE EM POUCOS PASSOS</p><h2>Escolha o melhor horário para você.</h2><p>Selecione serviço, data e horário. A demonstração registra a solicitação na agenda do ClientFlow neste navegador.</p></section>
+    <form id="public-booking-form" class="booking-form">
+      <label>Serviço<select id="public-service" required></select></label>
+      <div class="booking-row"><label>Data<input id="public-date" type="date" required /></label><label>Horário<select id="public-time" required></select></label></div>
+      <label>Seu nome<input id="public-name" maxlength="80" required placeholder="Nome completo" /></label>
+      <label>WhatsApp<input id="public-phone" inputmode="tel" maxlength="20" required placeholder="(21) 99999-9999" /></label>
+      <button class="btn btn-booking" type="submit">Solicitar horário</button>
+      <p class="booking-note">Demonstração pública: não informe dados pessoais reais.</p>
+    </form>
+    <section class="booking-success" id="public-success" hidden><span>✓</span><h3>Solicitação recebida!</h3><p>O agendamento foi salvo. Abra o painel para ver a solicitação na agenda.</p><div class="hero-actions" style="justify-content:center"><a class="btn btn-booking" href="index.html">Abrir painel</a></div></section>
+  </main>
+  <script src="booking.js"></script>
+</body>
+</html>
