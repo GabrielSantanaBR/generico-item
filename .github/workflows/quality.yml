@@ -1,0 +1,28 @@
+name: ClientFlow quality checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check JavaScript syntax
+        run: node --check app.js
+      - name: Verify required application files
+        run: |
+          test -f index.html
+          test -f styles.css
+          test -f manifest.webmanifest
+          test -f sw.js
+          test -f assets/icon.svg
+      - name: Verify no accidental secrets
+        run: |
+          ! grep -RniE '(api[_-]?key|secret[_-]?key|password)[[:space:]]*[:=][[:space:]]*["'"'][^"'"']+["'"']' --exclude-dir=.git .
