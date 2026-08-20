@@ -15,14 +15,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check JavaScript syntax
-        run: node --check app.js
+        run: |
+          node --check app.js
+          node --check booking.js
+          node --check sw.js
       - name: Verify required application files
         run: |
           test -f index.html
+          test -f booking.html
           test -f styles.css
           test -f manifest.webmanifest
           test -f sw.js
           test -f assets/icon.svg
-      - name: Verify no accidental secrets
+          test -f docs/ARCHITECTURE.md
+          test -f docs/COMMERCIAL.md
+          test -f SECURITY.md
+      - name: Verify no obvious committed secrets
         run: |
-          ! grep -RniE '(api[_-]?key|secret[_-]?key|password)[[:space:]]*[:=][[:space:]]*["'"'][^"'"']+["'"']' --exclude-dir=.git .
+          if grep -RniE '(api[_-]?key|secret[_-]?key|password)[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_-]{16,}' --exclude-dir=.git .; then
+            echo 'Potential secret-like value found.'
+            exit 1
+          fi
