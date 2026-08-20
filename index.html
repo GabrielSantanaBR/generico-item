@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#101820" />
+  <meta name="description" content="ClientFlow — agenda, clientes, serviços, orçamentos e atendimento em uma única experiência." />
+  <title>ClientFlow — Gestão de atendimento</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="logo" href="#dashboard" aria-label="ClientFlow">
+        <span class="logo-mark">CF</span>
+        <span><strong>ClientFlow</strong><small>atendimento simples</small></span>
+      </a>
+
+      <nav class="side-nav" aria-label="Menu principal">
+        <button class="nav-item active" data-view="dashboard"><span>▦</span>Visão geral</button>
+        <button class="nav-item" data-view="schedule"><span>◷</span>Agenda</button>
+        <button class="nav-item" data-view="clients"><span>◎</span>Clientes</button>
+        <button class="nav-item" data-view="services"><span>◇</span>Serviços</button>
+        <button class="nav-item" data-view="quotes"><span>▤</span>Orçamentos</button>
+        <button class="nav-item" data-view="messages"><span>◌</span>Mensagens</button>
+        <button class="nav-item" data-view="settings"><span>⚙</span>Configurações</button>
+      </nav>
+
+      <div class="sidebar-card">
+        <small>PÁGINA DO CLIENTE</small>
+        <strong>Agendamento online</strong>
+        <p>Veja como seu cliente escolhe serviço, data e horário.</p>
+        <button class="btn btn-soft" data-open-booking>Visualizar</button>
+      </div>
+
+      <div class="profile-mini">
+        <span class="avatar">MP</span>
+        <span><strong>Marina Prado</strong><small>Administradora</small></span>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="icon-btn mobile-menu" id="mobile-menu" aria-label="Abrir menu">☰</button>
+        <div>
+          <p class="page-kicker" id="page-kicker">PAINEL</p>
+          <h1 id="page-title">Visão geral</h1>
+        </div>
+        <div class="top-actions">
+          <button class="btn btn-soft desktop-only" data-open-booking>Ver página do cliente</button>
+          <button class="btn btn-primary" data-action="quick-appointment">+ Novo agendamento</button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="hero-strip">
+          <div>
+            <p class="eyebrow">QUINTA-FEIRA</p>
+            <h2>Bom dia, Marina.</h2>
+            <p>Você tem <strong id="hero-appointments">0 atendimentos</strong> na agenda e <strong id="hero-pending">0 orçamentos</strong> aguardando retorno.</p>
+          </div>
+          <button class="btn btn-light" data-action="quick-appointment">Adicionar atendimento</button>
+        </div>
+
+        <div class="stats-grid" id="dashboard-stats"></div>
+
+        <div class="dashboard-grid">
+          <article class="panel agenda-panel">
+            <div class="panel-head"><div><small>HOJE</small><h3>Próximos atendimentos</h3></div><button class="text-btn" data-go="schedule">Ver agenda</button></div>
+            <div id="today-list" class="timeline"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head"><div><small>COMERCIAL</small><h3>Orçamentos</h3></div><button class="text-btn" data-go="quotes">Ver todos</button></div>
+            <div class="quote-summary" id="quote-summary"></div>
+          </article>
+
+          <article class="panel revenue-panel">
+            <div class="panel-head"><div><small>ÚLTIMOS 6 MESES</small><h3>Receita estimada</h3></div><span class="pill positive">+12,4%</span></div>
+            <div class="bar-chart" id="revenue-chart" aria-label="Gráfico de receita"></div>
+            <div class="chart-labels"><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head"><div><small>RELACIONAMENTO</small><h3>Clientes recentes</h3></div><button class="text-btn" data-go="clients">Abrir CRM</button></div>
+            <div id="recent-clients" class="mini-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-schedule">
+        <div class="section-toolbar">
+          <div class="segmented" id="schedule-filter">
+            <button class="active" data-filter="all">Todos</button>
+            <button data-filter="confirmed">Confirmados</button>
+            <button data-filter="pending">Pendentes</button>
+            <button data-filter="done">Concluídos</button>
+          </div>
+          <button class="btn btn-primary" data-action="quick-appointment">+ Agendamento</button>
+        </div>
+        <div class="panel table-panel"><div class="table-scroll"><table><thead><tr><th>Horário</th><th>Cliente</th><th>Serviço</th><th>Valor</th><th>Status</th><th></th></tr></thead><tbody id="schedule-table"></tbody></table></div><div class="mobile-list" id="schedule-mobile"></div></div>
+      </section>
+
+      <section class="view" id="view-clients">
+        <div class="section-toolbar"><div><p class="helper">Cadastre informações essenciais e mantenha o histórico de atendimento organizado.</p></div><button class="btn btn-primary" data-action="new-client">+ Novo cliente</button></div>
+        <div class="search-row"><input class="search-input" id="client-search" placeholder="Buscar por nome, telefone ou e-mail" /></div>
+        <div class="client-grid" id="client-grid"></div>
+      </section>
+
+      <section class="view" id="view-services">
+        <div class="section-toolbar"><div><p class="helper">Serviços, duração e valores usados na agenda e nos orçamentos.</p></div><button class="btn btn-primary" data-action="new-service">+ Novo serviço</button></div>
+        <div class="service-grid" id="service-grid"></div>
+      </section>
+
+      <section class="view" id="view-quotes">
+        <div class="section-toolbar"><div class="segmented" id="quote-filter"><button class="active" data-filter="all">Todos</button><button data-filter="draft">Rascunho</button><button data-filter="sent">Enviados</button><button data-filter="approved">Aprovados</button></div><button class="btn btn-primary" data-action="new-quote">+ Novo orçamento</button></div>
+        <div class="quote-board" id="quote-board"></div>
+      </section>
+
+      <section class="view" id="view-messages">
+        <div class="message-layout">
+          <article class="panel">
+            <div class="panel-head"><div><small>ATALHOS</small><h3>Modelos de mensagem</h3></div></div>
+            <div id="message-templates" class="template-list"></div>
+          </article>
+          <article class="panel composer-panel">
+            <div class="panel-head"><div><small>WHATSAPP</small><h3>Montar mensagem</h3></div></div>
+            <label>Cliente<select id="message-client"></select></label>
+            <label>Mensagem<textarea id="message-text" rows="8" placeholder="Escreva sua mensagem..."></textarea></label>
+            <div class="composer-actions"><button class="btn btn-soft" id="copy-message">Copiar</button><button class="btn btn-primary" id="send-whatsapp">Abrir no WhatsApp</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="settings-grid">
+          <article class="panel">
+            <div class="panel-head"><div><small>NEGÓCIO</small><h3>Identidade da demo</h3></div></div>
+            <div class="form-grid">
+              <label>Nome do negócio<input id="setting-business" value="Studio Aurora" /></label>
+              <label>WhatsApp<input id="setting-whatsapp" value="5521999999999" inputmode="tel" /></label>
+              <label>Horário inicial<input id="setting-start" type="time" value="09:00" /></label>
+              <label>Horário final<input id="setting-end" type="time" value="19:00" /></label>
+            </div>
+            <button class="btn btn-primary" id="save-settings">Salvar preferências</button>
+          </article>
+          <article class="panel">
+            <div class="panel-head"><div><small>DADOS</small><h3>Backup da demonstração</h3></div></div>
+            <p class="helper">Exporte os dados do navegador ou restaure o conjunto fictício inicial.</p>
+            <div class="stack-actions"><button class="btn btn-soft" id="export-data">Exportar JSON</button><label class="btn btn-soft file-btn">Importar JSON<input type="file" id="import-data" accept="application/json" /></label><button class="btn btn-danger" id="reset-data">Restaurar demonstração</button></div>
+          </article>
+          <article class="panel full-span">
+            <div class="panel-head"><div><small>PRODUÇÃO</small><h3>Como transformar a demo em produto</h3></div></div>
+            <div class="production-grid"><div><strong>Banco e autenticação</strong><p>Substituir localStorage por PostgreSQL/Supabase e autenticação real.</p></div><div><strong>WhatsApp oficial</strong><p>Usar a API oficial da Meta para lembretes e automações em escala.</p></div><div><strong>Pagamentos</strong><p>Adicionar PIX, sinal e confirmação automática quando necessário.</p></div><div><strong>Equipe</strong><p>Agenda por profissional, permissões e comissões por serviço.</p></div></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Navegação mobile">
+    <button class="active" data-view="dashboard">▦<span>Início</span></button>
+    <button data-view="schedule">◷<span>Agenda</span></button>
+    <button data-action="quick-appointment" class="mobile-add">+</button>
+    <button data-view="clients">◎<span>Clientes</span></button>
+    <button data-view="quotes">▤<span>Orçamentos</span></button>
+  </nav>
+
+  <dialog class="modal" id="entity-modal">
+    <form method="dialog" id="entity-form">
+      <div class="modal-head"><div><p class="page-kicker" id="modal-kicker">NOVO</p><h2 id="modal-title">Adicionar</h2></div><button class="icon-btn" value="cancel" aria-label="Fechar">×</button></div>
+      <div id="modal-fields" class="form-grid"></div>
+      <div class="modal-actions"><button class="btn btn-soft" value="cancel">Cancelar</button><button class="btn btn-primary" id="modal-save" value="default">Salvar</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="booking-dialog" id="booking-dialog">
+    <div class="booking-page">
+      <button class="booking-close" data-close-booking aria-label="Fechar">×</button>
+      <header class="booking-brand"><span class="booking-logo">A</span><div><strong id="booking-business">Studio Aurora</strong><small>Agendamento online</small></div></header>
+      <section class="booking-copy"><p class="page-kicker">AGENDE EM POUCOS PASSOS</p><h2>Escolha o melhor horário para você.</h2><p>Sem troca de dezenas de mensagens. Confirme serviço, data e horário em menos de um minuto.</p></section>
+      <form id="booking-form" class="booking-form">
+        <label>Serviço<select id="booking-service" required></select></label>
+        <div class="booking-row"><label>Data<input id="booking-date" type="date" required /></label><label>Horário<select id="booking-time" required></select></label></div>
+        <label>Seu nome<input id="booking-name" maxlength="80" required placeholder="Nome completo" /></label>
+        <label>WhatsApp<input id="booking-phone" inputmode="tel" maxlength="20" required placeholder="(21) 99999-9999" /></label>
+        <button class="btn btn-booking" type="submit">Confirmar solicitação</button>
+        <p class="booking-note">Demonstração: o pedido é salvo somente neste navegador.</p>
+      </form>
+      <div class="booking-success" id="booking-success" hidden><span>✓</span><h3>Solicitação recebida!</h3><p>O horário foi incluído na agenda da demonstração.</p><button class="btn btn-booking" data-close-booking>Voltar ao painel</button></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
