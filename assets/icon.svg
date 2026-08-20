@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ClientFlow">
+  <rect width="128" height="128" rx="28" fill="#143d3a"/>
+  <path d="M35 39c0-7.7 6.3-14 14-14h30c7.7 0 14 6.3 14 14v14H79V41c0-1.1-.9-2-2-2H51c-1.1 0-2 .9-2 2v46c0 1.1.9 2 2 2h26c1.1 0 2-.9 2-2V75h14v14c0 7.7-6.3 14-14 14H49c-7.7 0-14-6.3-14-14V39Z" fill="#e4f0ec"/>
+  <path d="M63 54h30v20H63c-5.5 0-10-4.5-10-10s4.5-10 10-10Z" fill="#74b4a7"/>
+  <circle cx="79" cy="64" r="4" fill="#143d3a"/>
+</svg>
